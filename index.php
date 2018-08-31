@@ -8,6 +8,9 @@ require('create.php');
 $ary = array();
 $key = array(
     'id',
+    'faculty_id',
+    'sub_title',
+    'subsub_title',
     'lesson_title',
     'lesson_term',
     'lesson_date',
@@ -29,6 +32,9 @@ $cli = new Goutte\Client();
 
 // $urls
 $num = count($urls);
+
+
+
 for ($i=0; $i < $num; $i++) {
   $ary2 = array();
 
@@ -40,6 +46,9 @@ for ($i=0; $i < $num; $i++) {
 
 
   $ary2[] = $data['lesson_id'];
+  $ary2[] = $data['faculty_id'];
+  $ary2[] = $data['sub_title'];
+  $ary2[] = $data['subsub_title'];
   $ary2[] = $data['lesson_title'];
   $ary2[] = $data['lesson_term'];
   $ary2[] = $data['lesson_date'];

@@ -8,6 +8,12 @@ function createData($crawler, $url) {
 
   $lesson_id = $i + 1;
 
+  $faculty_id = 1;
+
+  $sub_title = 
+
+  $subsub_title = 
+
   $lesson_title = $crawler->filter('#pnlContent tr .tbl-item-w-strong')->text();
   $lesson_title = str_replace('　≪◇学部≫', '', $lesson_title);
 
@@ -76,6 +82,9 @@ function createData($crawler, $url) {
 
   $data = [
     'lesson_id'         => $lesson_id,
+    'faculty_id'        => $faculty_id,
+    'sub_title'         => $sub_title,
+    'subsub_title'      => $subsub_title,
     'lesson_title'      => $lesson_title,
     'lesson_term'       => $lesson_term,
     'lesson_date'       => $lesson_date,
