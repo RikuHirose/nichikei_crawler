@@ -20,20 +20,14 @@ $key = array(
 
 
 $n = count($links);
-// $urls[0] = $key;
+
 
 for ($i=0; $i < $n; $i++) {
 
-
   $link = 'http://www.eco.nihon-u.ac.jp/about/disclosure/syllabus_2018/'.$links[$i];
 
-  
-
-  // $link = 'http://www.eco.nihon-u.ac.jp/about/disclosure/syllabus_2018/AA00001.html';
   $crawler = $cli->request('GET',$link);
 
-
-  // $found_url = $crawler->filter('#main .teachersList li a')->extract('href');
 
   $found_url = $crawler->filter('#main .teachersList li a')->each(function($v){
     return $v->extract('href');
@@ -74,29 +68,7 @@ for ($i=0; $i < $n; $i++) {
 
   }
 
-
-  // if(!file_exists($file)) {
-  //   mkdir('urls/'.$subtitle);
-  //   touch('urls/'.$subtitle.'/'.$subsubtitle.'.csv');
-  //   $file = 'urls/'.$subtitle.'/'.$subsubtitle.'.csv';
-  // }
-
-
-
   sleep(5);
 
 
-
-
 }
-
-
-
-
-// $f = fopen("data.csv", "w");
-// if ( $f ) {
-//   foreach($ary as $line){
-//     fputcsv($f, $line);
-//   }
-// }
-// fclose($f);
