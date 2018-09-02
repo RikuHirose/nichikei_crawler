@@ -1,9 +1,7 @@
 <?php
 
 require_once __DIR__ . '/vendor/autoload.php';
-require('urls.php');
 require('create.php');
-
 
 $ary = array();
 $key = array(
@@ -24,25 +22,53 @@ $key = array(
     'lesson_read',
     'lesson_officehour',
     'lesson_info',
+    'evaluate_exam',
+    'evaluate_report',
+    'evaluate_mintest',
+    'evaluate_apply',
+    'evaluate_others',
+    'evaluate_total',
     'url',
     'year',
 );
 
+
 $cli = new Goutte\Client();
 
-// $urls
-$num = count($urls);
+//file
+$file = array();
+foreach(glob('/Users/rikuparkour1996/www/scraping/urls/data.csv') as $f){
+  if(is_file($f)){
+    $f = htmlspecialchars($f);
+    $file[] = $f;
+  }
+}
 
 
+//csvを配列に変換
+$csv  = array();
+$fp   = fopen($file[0], "r");
 
-for ($i=0; $i < $num; $i++) {
+while (($data = fgetcsv($fp, 0, ",")) !== FALSE) {
+  $csv[] = $data;
+}
+fclose($fp);
+
+
+for ($i=0; $i < count($csv); $i++) {
   $ary2 = array();
+  $ary = [];
 
-  $url = 'http://www.eco.nihon-u.ac.jp/about/disclosure/syllabus_2018/'.$urls[$i];
+  $subtitle = $csv[$i][0];
+  $subsubtitle = $csv[$i][1];
+
+  //scrapingする
+  $url = 'http://www.eco.nihon-u.ac.jp/about/disclosure/syllabus_2018/'.$csv[$i][2];
+
   $crawler = $cli->request('GET',$url);
+  $id = $i + 663;
 
-
-  $data = createData($crawler, $url);
+  $data = createData($subtitle, $subsubtitle, $url, $crawler, $id);
 
 
   $ary2[] = $data['lesson_id'];
@@ -62,28 +88,37 @@ for ($i=0; $i < $num; $i++) {
   $ary2[] = $data['lesson_read'];
   $ary2[] = $data['lesson_officehour'];
   $ary2[] = $data['lesson_info'];
+  $ary2[] = $data['evaluate_exam'];
+  $ary2[] = $data['evaluate_report'];
+  $ary2[] = $data['evaluate_mintest'];
+  $ary2[] = $data['evaluate_apply'];
+  $ary2[] = $data['evaluate_others'];
+  $ary2[] = $data['evaluate_total'];
   $ary2[] = $data['url'];
   $ary2[] = $data['year'];
 
-  $ary[0] = $key;
+  // $ary[0] = $key;
   $ary[$i + 1] = $ary2;
 
 
-  usleep(500000);
+  $f = fopen("seedData.csv", "a");
+  // 正常にファイルを開くことができていれば、書き込みます。
+  if ( $f ) {
+    // $ary から順番に配列を呼び出して書き込みます。
+    foreach($ary as $line){
+      // fputcsv関数でファイルに書き込みます。
+      fputcsv($f, $line);
+    } 
+  }
+  // ファイルを閉じます。
+  fclose($f);
+
+  sleep(5);
 
 }
 
 
 
 
-$f = fopen("data.csv", "w");
-// 正常にファイルを開くことができていれば、書き込みます。
-if ( $f ) {
-  // $ary から順番に配列を呼び出して書き込みます。
-  foreach($ary as $line){
-    // fputcsv関数でファイルに書き込みます。
-    fputcsv($f, $line);
-  } 
-}
-// ファイルを閉じます。
-fclose($f);
+
+

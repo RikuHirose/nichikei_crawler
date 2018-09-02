@@ -12,6 +12,7 @@ foreach(glob('/Users/rikuparkour1996/www/scraping/urls/data.csv') as $file){
 }
 
 
+
 //csvを配列に変換
 $csv  = array();
 $fp   = fopen($file, "r");
@@ -20,6 +21,8 @@ while (($data = fgetcsv($fp, 0, ",")) !== FALSE) {
   $csv[] = $data;
 }
 fclose($fp);
+
+
 
 $html = array();
 for ($i=0; $i < count($csv); $i++) {
@@ -35,6 +38,7 @@ for ($i=0; $i < count($csv); $i++) {
 
   $ary[] = $csv[$i][0];
   $ary[] = $csv[$i][1];
+  // $ary[] = $url;
   $ary[] = $res;
 
   $html[] = $ary;
