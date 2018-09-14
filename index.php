@@ -101,14 +101,14 @@ for ($i=0; $i < count($csv); $i++) {
   $ary[$i + 1] = $ary2;
 
 
-  $f = fopen("seedData.csv", "a");
+  $f = fopen("lesson_data.csv", "a");
   // 正常にファイルを開くことができていれば、書き込みます。
   if ( $f ) {
     // $ary から順番に配列を呼び出して書き込みます。
     foreach($ary as $line){
       // fputcsv関数でファイルに書き込みます。
       fputcsv($f, $line);
-    } 
+    }
   }
   // ファイルを閉じます。
   fclose($f);
