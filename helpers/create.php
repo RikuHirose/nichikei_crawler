@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/vendor/autoload.php';
+// require_once __DIR__ . '/vendor/autoload.php';
 // require('index.php');
 
 
@@ -32,7 +32,41 @@ function createData($subtitle, $subsubtitle, $url, $crawler, $id) {
 
   $lesson_term = $crawler->filter('#pnlContent tr .tbl-item-w')->eq(0)->text();
 
-  $lesson_date = $crawler->filter('#pnlContent tr .tbl-item-w')->eq(1)->text();
+  $date = $crawler->filter('#pnlContent tr .tbl-item-w')->eq(1)->text();
+
+
+  if(strpos($date, '月') !== false){
+    $hour = explode('月', $date);
+    $lesson_hour = $hour[1];
+    $lesson_date = '月';
+
+  } elseif (strpos($date, '火') !== false) {
+    $hour = explode('火', $date);
+    $lesson_hour = $hour[1];
+    $lesson_date = '火';
+
+  } elseif (strpos($date, '水') !== false) {
+    $hour = explode('水', $date);
+    $lesson_hour = $hour[1];
+    $lesson_date = '水';
+
+  } elseif (strpos($date, '木') !== false) {
+    $hour = explode('木', $date);
+    $lesson_hour = $hour[1];
+    $lesson_date = '木';
+
+  } elseif (strpos($date, '金') !== false) {
+    $hour = explode('金', $date);
+    $lesson_hour = $hour[1];
+    $lesson_date = '金';
+
+  } elseif (strpos($date, '土') !== false) {
+    $hour = explode('土', $date);
+    $lesson_hour = $hour[1];
+    $lesson_date = '土';
+
+  }
+
 
   $lesson_credit = $crawler->filter('#pnlContent tr .tbl-item-w')->eq(2)->text();
 
@@ -110,6 +144,7 @@ function createData($subtitle, $subsubtitle, $url, $crawler, $id) {
     'lesson_title'      => $lesson_title,
     'lesson_term'       => $lesson_term,
     'lesson_date'       => $lesson_date,
+    'lesson_hour'       => $lesson_hour,
     'lesson_credit'     => $lesson_credit,
     'lesson_professor'  => $lesson_professor,
     'lesson_objectives' => $lesson_objectives,

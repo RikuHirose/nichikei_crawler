@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/vendor/autoload.php';
+// require_once __DIR__ . '/vendor/autoload.php';
 // require('index.php');
 
 
@@ -33,7 +33,7 @@ function createRoundData($crawler, $lesson_id) {
     $round_data = array();
     for ($i=0; $i < count($round); $i++) {
 
-      // $id                  = $i + 1;
+      // $id                  = $id**;
       $lesson_id           = $lesson_id;
       $lesson_title        = $lesson_title;
       $lesson_round        = $round[$i];
